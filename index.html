@@ -86,18 +86,20 @@
 						<!-- Work -->
 							<article id="join">
 								<h2 class="major">火速进服</h2>
-								<!--<span class="image main"><img src="images/pic02.jpg" alt="" /></span>-->
+								<div id="join_content"></div>
+								<!--<span class="image main"><img src="images/pic02.jpg" alt="" /></span>
 								<p>群号：865811340<br />
 								IP 进群后有<br />
 								具体看群公告</p>
-								<p>咕咕咕</p>
+								<p>咕咕咕</p>-->
 							</article>
 
 						<!-- About -->
 							<article id="about">
 								<h2 class="major">关于OIC</h2>
-								<!--<span class="image main"><img src="images/pic03.jpg" alt="" /></span>-->
-								<p>咕咕咕</p>
+								<div id="about_content"></div>
+								<!--<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
+								<p>咕咕咕</p>-->
 							</article>
 
 						<!-- Contact -->
@@ -155,6 +157,12 @@
 			<script>
 				$.get('./source/law.md', function(response, status, xhr){
 					$("#law_content").html(marked(response));
+				});
+				$.get('./source/join.md', function(response, status, xhr){
+					$("#join_content").html(marked(response));
+				});
+				$.get('./source/about.md', function(response, status, xhr){
+					$("#about_content").html(marked(response));
 				});
 			</script>
 
