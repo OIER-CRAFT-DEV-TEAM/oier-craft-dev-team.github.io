@@ -44,9 +44,10 @@
                 <nav>
                     <ul>
                         <li><a href="#about">ABOUT</a></li>
-                        <li><a href="#join">JOIN</a></li>
-                        <li><a href="#contact">CONTACT</a></li>
                         <li><a href="#law">LAW</a></li>
+                        <li><a href="#join">JOIN</a></li>
+                        <li><a href="#donate">DONATE</a></li>
+                        <li><a href="#contact">CONTACT</a></li>
                     </ul>
                 </nav>
             </header>
@@ -62,6 +63,10 @@
                 <article id="about">
                     <h2 class="major">ABOUT | 关于 OIC</h2>
                     <div id="about_content"></div>
+                </article>
+                <article id="donate">
+                    <h2 class="major">DONATE | 捐款</h2>
+                    <div id="donate_content"></div>
                 </article>
                 <article id="contact">
                     <h2 class="major">CONTACT | 联系我们</h2>
@@ -86,13 +91,14 @@
         <script src="/assets/js/main.js"></script>
         <script>
             function init(file) { 
-                $.get('/source/' + file + '.md', function(response, status, xhr){
+                $.get('./source/' + file + '.md', function(response, status, xhr){
                     $("#" + file + "_content").html(marked(response));
                 });
             }
             init('law');
             init('join');
             init('about');
+            init('donate');
         </script>
     </body>
 </html>
