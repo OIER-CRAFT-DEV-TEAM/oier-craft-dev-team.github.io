@@ -1,76 +1,91 @@
 console.clear();
 console.log('Successful registered service worker.');
 importScripts('https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.4/workbox/workbox-sw.min.js');
-let cacheSuffixVersion = '-210227';  // 缓存版本号
-const maxEntries = 100;              // 最大条目数
+
+workbox.setConfig({
+    modulePathPrefix: 'https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.4/workbox/workbox-sw.min.js'
+});
+
+const { core, precaching, routing, strategies, expiration, cacheableResponse, backgroundSync } = workbox;
+const { CacheFirst, NetworkFirst, NetworkOnly, StaleWhileRevalidate } = strategies;
+const { ExpirationPlugin } = expiration;
+const { CacheableResponsePlugin } = cacheableResponse;
+
+const cacheSuffixVersion = '-210713';
+const maxEntries = 100;
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((keys) => {
+            return Promise.all(keys.map((key) => {
+                if (key.includes('disqus-cdn-cache')) return caches.delete(key);
+                if (key.includes('disqus-img-cache')) return caches.delete(key);
+                if (!key.includes(cacheSuffixVersion)) return caches.delete(key);
+            }));
+        })
+    );
+});
+
 core.setCacheNameDetails({
     prefix: 'oiercraft',          // 前缀
     suffix: cacheSuffixVersion       // 后缀
 });
-workbox.routing.registerRoute(
-    // 匹配 fonts.googleapis.com 和 fonts.gstatic.com 两个域名
-    new RegExp('^https://(?:fonts\\.googleapis\\.com|fonts\\.gstatic\\.com)'),
-    new workbox.strategies.StaleWhileRevalidate({
-        // cache storage 名称和版本号
-        cacheName: 'font-cache' + cacheSuffixVersion,
-        plugins: [
-            // 使用 expiration 插件实现缓存条目数目和时间控制
-            new workbox.expiration.ExpirationPlugin({
-                // 最大保存项目
-                maxEntries,
-                // 缓存 30 天
-                maxAgeSeconds: 30 * 24 * 60 * 60,
-            }),
-            // 使用 cacheableResponse 插件缓存状态码为 0 的请求
-            new workbox.cacheableResponse.CacheableResponsePlugin({
-                statuses: [0, 200],
-            }),
-        ]
-    })
+
+precaching.precacheAndRoute(
+    [],
 );
-workbox.routing.registerRoute(
-    new RegExp('^https://cdn\\.jsdelivr\\.net'),
-    new workbox.strategies.CacheFirst({
+
+routing.registerRoute(
+    /.*cdn\.bootcss\.com/,
+    new CacheFirst({
         cacheName: 'static-immutable' + cacheSuffixVersion,
         fetchOptions: {
             mode: 'cors',
             credentials: 'omit'
         },
         plugins: [
-            new workbox.expiration.ExpirationPlugin({
+            new ExpirationPlugin({
                 maxAgeSeconds: 30 * 24 * 60 * 60,
                 purgeOnQuotaError: true
             })
         ]
     })
 );
-workbox.routing.registerRoute(
-    new RegExp('^https://(?:i|vip[0-9])\\.loli\\.(?:io|net)'),
-    new workbox.strategies.CacheFirst({
+
+routing.registerRoute(
+    /.*(?:i|vip1|vip2)\.loli\.(?:io|net)/,
+    new CacheFirst({
         cacheName: 'img-cache' + cacheSuffixVersion,
+        fetchOptions: {
+            mode: 'cors',
+            credentials: 'omit'
+        },
         plugins: [
-            // 使用 expiration 插件实现缓存条目数目和时间控制
-            new workbox.expiration.ExpirationPlugin({
-                maxEntries,                          // 最大保存项目
-                maxAgeSeconds: 30 * 24 * 60 * 60,    // 缓存 30 天
-            }),
-            // 使用 cacheableResponse 插件缓存状态码为 0 的请求
-            new workbox.cacheableResponse.CacheableResponsePlugin({
-                statuses: [0, 200],
-            }),
+            new ExpirationPlugin({
+                maxAgeSeconds: 30 * 24 * 60 * 60,
+                purgeOnQuotaError: true
+            })
         ]
     })
 );
-workbox.routing.registerRoute(
-    new RegExp('.*\.(?:png|jpg|jpeg|svg|gif|webp)'),
-    new workbox.strategies.StaleWhileRevalidate()
+
+routing.registerRoute(
+    /.*\.(?:png|jpg|jpeg|svg|gif|webp)/,
+    new StaleWhileRevalidate()
 );
-workbox.routing.registerRoute(
-    new RegExp('.*\.(css|js)'),
-    new workbox.strategies.StaleWhileRevalidate()
+
+routing.registerRoute(
+    /.*\.(css|js)/,
+    new StaleWhileRevalidate()
 );
-workbox.routing.setDefaultHandler(
-    new workbox.strategies.NetworkFirst({
+
+routing.registerRoute(
+    '/sw.js',
+    new StaleWhileRevalidate()
+);
+
+routing.setDefaultHandler(
+    new NetworkFirst({
         networkTimeoutSeconds: 3
     })
 );
