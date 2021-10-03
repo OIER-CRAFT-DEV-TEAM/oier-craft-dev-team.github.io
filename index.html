@@ -9,6 +9,7 @@
         <title>OIer Craft | OIC 服务器官网</title>
         <meta charset="utf-8" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link rel="preconnect" href="https://i.loli.net" />
         <meta http-equiv="Cache-Control" content="no-siteapp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
@@ -27,6 +28,13 @@
         <script src="https://cdn.jsdelivr.net/gh/XYY1411/oier-craft-cdn/assets/js/browser.min.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/XYY1411/oier-craft-cdn/assets/js/breakpoints.min.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/XYY1411/oier-craft-cdn/assets/js/util.min.js"></script>
+        <script>
+            if ('serviceWorker' in navigator) { 
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js');
+                });
+            }
+        </script>
     </head>
     <body class="is-preload">
         <div id="wrapper">
