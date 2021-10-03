@@ -45,58 +45,36 @@
                 <div class="content">
                     <div class="inner">
                         <h1>OIer Craft</h1>
-                        <p>自由 / 开放 / 包容</p>
+                        <p><b>自由 / 开放 / 包容</b></p>
                     </div>
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="#about">ABOUT</a></li>
-                        <li><a href="#law">LAW</a></li>
-                        <li><a href="#join" style="background-color:#ed4933;">JOIN</a></li>
-                        <li><a href="https://map.oiercraft.ga:20684/">MAP</a></li>
-                        <!--<li><a href="#about">ABOUT</a></li>
-                        <li><a href="#law">LAW</a></li>
-                        <li><a href="#join">JOIN</a></li>
-                        <li><a href="#donate">DONATE</a></li>
-                        <li><a href="#contact">CONTACT</a></li>
-                        <li><a href="https://map.oiercraft.ga:20684/">MAP</a></li>-->
+                        <li><a href="#about"><b>ABOUT</b></a></li>
+                        <li><a href="#rule"><b>RULE</b></a></li>
+                        <li><a href="#join"><b>JOIN</b></a></li>
+                        <li><a href="https://map.oiercraft.ga:20684/"><b>MAP</b></a></li>
                     </ul>
                 </nav>
             </header>
             <main id="main">
-                <article id="law">
-                    <h2 class="major">LAW | OIC 法典（试行）</h2>
-                    <div id="law_content"></div>
+                <article id="about">
+                    <h2 class="major">ABOUT | 关于 OIC</h2>
+                    <div id="about_content"></div>
+                </article>
+                <article id="rule">
+                    <h2 class="major">RULE | OIC 法典（试行）</h2>
+                    <div id="rule_content"></div>
                 </article>
                 <article id="join">
                     <h2 class="major">JOIN | 火速进服</h2>
                     <div id="join_content"></div>
                 </article>
-                <article id="about">
-                    <h2 class="major">ABOUT | 关于 OIC</h2>
-                    <div id="about_content"></div>
-                </article>
-                <article id="donate">
-                    <h2 class="major">DONATE | 捐款</h2>
-                    <div id="donate_content"></div>
-                </article>
-                <article id="contact">
-                    <h2 class="major">CONTACT | 联系我们</h2>
-                    <ul class="icons">
-                        <li>
-                            <a
-                                href="https://qm.qq.com/cgi-bin/qm/qr?k=FVrsD-vzVJaV8BTsAtS41IV9Q_mwEsJ2&jump_from=webapi"
-                                class="icon brands fa-qq"
-                                target="_blank"
-                            >
-                                <span class="label">QQ</span>
-                            </a>
-                        </li>
-                    </ul>
-                </article>
             </main>
             <footer id="footer">
-                <p class="copyright">COPYRIGHT © 2021 OIer Craft. ALL RIGHTS RESERVED. | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+                <p class="copyright"><b>
+                    COPYRIGHT © 2021 OIer Craft. ALL RIGHTS RESERVED. | Design: <a href="https://html5up.net">HTML5 UP</a>.
+                </b></p>
             </footer>
         </div>
         <div id="bg"></div>
@@ -107,10 +85,9 @@
                     $("#" + file + "_content").html(marked(response));
                 });
             }
-            init('law');
-            init('join');
             init('about');
-            init('donate');
+            init('rule');
+            init('join');
         </script>
     </body>
 </html>
