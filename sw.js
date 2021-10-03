@@ -1,10 +1,6 @@
 console.clear();
 console.log('Successful registered service worker.');
-importScripts('https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.4/workbox/workbox-sw.min.js');
-
-workbox.setConfig({
-    modulePathPrefix: 'https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.4/workbox/workbox-sw.min.js'
-});
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.1.1/workbox-sw.js');
 
 const { core, precaching, routing, strategies, expiration, cacheableResponse, backgroundSync } = workbox;
 const { CacheFirst, NetworkFirst, NetworkOnly, StaleWhileRevalidate } = strategies;
