@@ -1,6 +1,6 @@
-importScripts('https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.4/workbox/workbox-sw.min.js');
 console.clear();
 console.log('Successful registered service worker.');
+importScripts('https://cdn.jsdelivr.net/npm/workbox-cdn@5.1.4/workbox/workbox-sw.min.js');
 let cacheSuffixVersion = '-210227';  // 缓存版本号
 const maxEntries = 100;              // 最大条目数
 core.setCacheNameDetails({
