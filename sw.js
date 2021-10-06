@@ -1,6 +1,6 @@
 console.clear();
 console.log('Successful registered service worker.');
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.1.1/workbox-sw.js');
+importScripts('https://cdn.jsdelivr.net/npm/workbox-sw@6/build/workbox-sw.min.js');
 
 const { core, precaching, routing, strategies, expiration, cacheableResponse, backgroundSync } = workbox;
 const { CacheFirst, NetworkFirst, NetworkOnly, StaleWhileRevalidate } = strategies;
@@ -23,16 +23,37 @@ self.addEventListener('activate', (event) => {
 });
 
 core.setCacheNameDetails({
-    prefix: 'oiercraft',          // 前缀
-    suffix: cacheSuffixVersion       // 后缀
+    prefix: 'oiercraft',
+    suffix: cacheSuffixVersion
 });
 
 precaching.precacheAndRoute(
     [],
 );
 
+// math Google Fonts
+
 routing.registerRoute(
-    /.*cdn\.bootcss\.com/,
+    /^https:\/\/fonts\.(?:googleapis|gstatic)\.(?:com|cn)/,
+    new CacheFirst({
+        cacheName: 'google-fonts' + cacheSuffixVersion,
+        fetchOptions: {
+            mode: 'cors',
+            credentials: 'omit'
+        },
+        plugins: [
+            new ExpirationPlugin({
+                maxAgeSeconds: 30 * 24 * 60 * 60,
+                purgeOnQuotaError: true
+            })
+        ]
+    })
+);
+
+// math CDN
+
+routing.registerRoute(
+    /^https:\/\/(?:fonts|cdnjs|gstatic|themes|ajax|gravatar)\.loli\.net/,
     new CacheFirst({
         cacheName: 'static-immutable' + cacheSuffixVersion,
         fetchOptions: {
@@ -41,7 +62,7 @@ routing.registerRoute(
         },
         plugins: [
             new ExpirationPlugin({
-                maxAgeSeconds: 30 * 24 * 60 * 60,
+                maxAgeSeconds: 10 * 24 * 60 * 60,
                 purgeOnQuotaError: true
             })
         ]
@@ -49,7 +70,77 @@ routing.registerRoute(
 );
 
 routing.registerRoute(
-    /.*(?:i|vip1|vip2)\.loli\.(?:io|net)/,
+    /^https:\/\/cdnjs\.cloudflare\.com/,
+    new CacheFirst({
+        cacheName: 'static-immutable' + cacheSuffixVersion,
+        fetchOptions: {
+            mode: 'cors',
+            credentials: 'omit'
+        },
+        plugins: [
+            new ExpirationPlugin({
+                maxAgeSeconds: 10 * 24 * 60 * 60,
+                purgeOnQuotaError: true
+            })
+        ]
+    })
+);
+
+routing.registerRoute(
+    /^https:\/\/cdn\.bootcdn\.net/,
+    new CacheFirst({
+        cacheName: 'static-immutable' + cacheSuffixVersion,
+        fetchOptions: {
+            mode: 'cors',
+            credentials: 'omit'
+        },
+        plugins: [
+            new ExpirationPlugin({
+                maxAgeSeconds: 10 * 24 * 60 * 60,
+                purgeOnQuotaError: true
+            })
+        ]
+    })
+);
+
+routing.registerRoute(
+    /^https:\/\/cdn\.bootcss\.com/,
+    new CacheFirst({
+        cacheName: 'static-immutable' + cacheSuffixVersion,
+        fetchOptions: {
+            mode: 'cors',
+            credentials: 'omit'
+        },
+        plugins: [
+            new ExpirationPlugin({
+                maxAgeSeconds: 10 * 24 * 60 * 60,
+                purgeOnQuotaError: true
+            })
+        ]
+    })
+);
+
+routing.registerRoute(
+    /^https:\/\/cdn\.jsdelivr\.com/,
+    new CacheFirst({
+        cacheName: 'static-immutable' + cacheSuffixVersion,
+        fetchOptions: {
+            mode: 'cors',
+            credentials: 'omit'
+        },
+        plugins: [
+            new ExpirationPlugin({
+                maxAgeSeconds: 10 * 24 * 60 * 60,
+                purgeOnQuotaError: true
+            })
+        ]
+    })
+);
+
+// match images
+
+routing.registerRoute(
+    /.*(?:i|vip[0-9])\.loli\.(?:io|net)/,
     new CacheFirst({
         cacheName: 'img-cache' + cacheSuffixVersion,
         fetchOptions: {
@@ -58,7 +149,7 @@ routing.registerRoute(
         },
         plugins: [
             new ExpirationPlugin({
-                maxAgeSeconds: 30 * 24 * 60 * 60,
+                maxAgeSeconds: 10 * 24 * 60 * 60,
                 purgeOnQuotaError: true
             })
         ]
@@ -67,12 +158,38 @@ routing.registerRoute(
 
 routing.registerRoute(
     /.*\.(?:png|jpg|jpeg|svg|gif|webp)/,
-    new StaleWhileRevalidate()
+    new CacheFirst({
+        cacheName: 'img-cache' + cacheSuffixVersion,
+        fetchOptions: {
+            mode: 'cors',
+            credentials: 'omit'
+        },
+        plugins: [
+            new ExpirationPlugin({
+                maxAgeSeconds: 10 * 24 * 60 * 60,
+                purgeOnQuotaError: true
+            })
+        ]
+    })
 );
+
+// match js / css
 
 routing.registerRoute(
     /.*\.(css|js)/,
-    new StaleWhileRevalidate()
+    new CacheFirst({
+        cacheName: 'img-cache' + cacheSuffixVersion,
+        fetchOptions: {
+            mode: 'cors',
+            credentials: 'omit'
+        },
+        plugins: [
+            new ExpirationPlugin({
+                maxAgeSeconds: 10 * 24 * 60 * 60,
+                purgeOnQuotaError: true
+            })
+        ]
+    })
 );
 
 routing.registerRoute(
