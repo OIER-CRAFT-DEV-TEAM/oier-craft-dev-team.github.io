@@ -55,7 +55,7 @@ routing.registerRoute(
 routing.registerRoute(
     /^https:\/\/(?:fonts|cdnjs|gstatic|themes|ajax|gravatar)\.loli\.net/,
     new CacheFirst({
-        cacheName: 'static-immutable' + cacheSuffixVersion,
+        cacheName: 'cdn-loli' + cacheSuffixVersion,
         fetchOptions: {
             mode: 'cors',
             credentials: 'omit'
@@ -72,7 +72,7 @@ routing.registerRoute(
 routing.registerRoute(
     /^https:\/\/cdnjs\.cloudflare\.com/,
     new CacheFirst({
-        cacheName: 'static-immutable' + cacheSuffixVersion,
+        cacheName: 'cdn-cdnjs' + cacheSuffixVersion,
         fetchOptions: {
             mode: 'cors',
             credentials: 'omit'
@@ -89,7 +89,7 @@ routing.registerRoute(
 routing.registerRoute(
     /^https:\/\/cdn\.bootcdn\.net/,
     new CacheFirst({
-        cacheName: 'static-immutable' + cacheSuffixVersion,
+        cacheName: 'cdn-bootcdn' + cacheSuffixVersion,
         fetchOptions: {
             mode: 'cors',
             credentials: 'omit'
@@ -106,7 +106,7 @@ routing.registerRoute(
 routing.registerRoute(
     /^https:\/\/cdn\.bootcss\.com/,
     new CacheFirst({
-        cacheName: 'static-immutable' + cacheSuffixVersion,
+        cacheName: 'cdn-bootcss' + cacheSuffixVersion,
         fetchOptions: {
             mode: 'cors',
             credentials: 'omit'
@@ -123,7 +123,7 @@ routing.registerRoute(
 routing.registerRoute(
     /^https:\/\/cdn\.jsdelivr\.com/,
     new CacheFirst({
-        cacheName: 'static-immutable' + cacheSuffixVersion,
+        cacheName: 'cdn-jsdelivr' + cacheSuffixVersion,
         fetchOptions: {
             mode: 'cors',
             credentials: 'omit'
@@ -142,7 +142,7 @@ routing.registerRoute(
 routing.registerRoute(
     /.*(?:i|vip[0-9])\.loli\.(?:io|net)/,
     new CacheFirst({
-        cacheName: 'img-cache' + cacheSuffixVersion,
+        cacheName: 'img-cache-loli' + cacheSuffixVersion,
         fetchOptions: {
             mode: 'cors',
             credentials: 'omit'
@@ -178,7 +178,7 @@ routing.registerRoute(
 routing.registerRoute(
     /.*\.(css|js)/,
     new CacheFirst({
-        cacheName: 'img-cache' + cacheSuffixVersion,
+        cacheName: 'js-css-cache' + cacheSuffixVersion,
         fetchOptions: {
             mode: 'cors',
             credentials: 'omit'
