@@ -49,3 +49,5 @@ Minecraft 服务器配置：
 ### 火速捐款
 
 ![微信支付](https://i.loli.net/2021/10/03/ZrkWD2m4P7Fd8hj.jpg)
+
+捐完钱可以发邮件到 reverber@qq.com，说明是您捐的钱，不过如果您想捐钱不留名也可以 /se
