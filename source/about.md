@@ -6,6 +6,10 @@ OIer Craft 是一个小众慈善的纯净生存服务器，服主是 <ruby>Rever
 
 本服务器秉持着自由、开放的理念，保证无任何氪金付费内容，无领地等插件，只为一个更纯真的 Minecraft 服务器体验。
 
+QQ 群号：865811340
+
+进服前建议阅读 [新人指南](https://blog.oiercraft.top/post/xin-ren-zhi-nan/)
+
 ----
 
 ### 技术相关
